@@ -8,33 +8,51 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 220 13% 5%;
+    --foreground: 0 0% 100%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 222 13% 10%;
+    --card-foreground: 0 0% 100%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 222 13% 10%;
+    --popover-foreground: 0 0% 100%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 249 58% 69%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 222 13% 10%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 222 13% 15%;
+    --muted-foreground: 0 0% 60%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 37 100% 56%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 222 13% 15%;
+    --input: 222 13% 15%;
+    --ring: 249 58% 69%;
+
+    /* BlackConversa Design Tokens */
+    --converza-dark: 220 13% 5%;
+    --converza-card: 222 13% 10%;
+    --converza-purple: 249 58% 69%;
+    --converza-orange: 37 100% 56%;
+    --converza-border: 222 13% 15%;
+    
+    /* Gradients */
+    --gradient-diagonal: linear-gradient(135deg, hsl(var(--converza-purple) / 0.1), hsl(var(--converza-orange) / 0.1));
+    --gradient-card: linear-gradient(135deg, hsl(var(--converza-card)), hsl(var(--converza-card) / 0.8));
+    
+    /* Shadows */
+    --shadow-card: 0 10px 30px -10px hsl(var(--converza-purple) / 0.2);
+    --shadow-glow: 0 0 40px hsl(var(--converza-purple) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --radius: 0.5rem;
 
@@ -94,12 +112,74 @@ All colors MUST be HSL.
   }
 }
 
+/* Floating Lines Background Animation */
+@keyframes floatLines {
+  0% {
+    transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100vw) translateY(100vh) rotate(45deg);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    background: linear-gradient(135deg, hsl(var(--converza-dark)), hsl(var(--converza-card) / 0.5));
+  }
+
+  /* Animated background lines */
+  .floating-lines::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(45deg, transparent 49%, hsl(var(--converza-purple) / 0.1) 50%, transparent 51%),
+      linear-gradient(-45deg, transparent 49%, hsl(var(--converza-orange) / 0.05) 50%, transparent 51%);
+    background-size: 50px 50px;
+    animation: floatLines 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Hover effects */
+  .hover-scale {
+    transition: var(--transition-smooth);
+  }
+
+  .hover-scale:hover {
+    transform: scale(1.03);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--converza-dark));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--converza-purple) / 0.5);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--converza-purple));
   }
 }

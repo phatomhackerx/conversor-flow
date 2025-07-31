@@ -1,14 +1,17 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import Login from "@/components/Login";
+import Dashboard from "@/components/Dashboard";
 
 const Index = () => {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
-  );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // For demo purposes, you can toggle between login and dashboard
+  // In production, this would be based on actual authentication state
+  if (!isLoggedIn) {
+    return <Login onLogin={() => setIsLoggedIn(true)} />;
+  }
+
+  return <Dashboard onLogout={() => setIsLoggedIn(false)} />;
 };
 
 export default Index;
