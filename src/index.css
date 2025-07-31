@@ -122,6 +122,15 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--converza-purple) / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px hsl(var(--converza-purple) / 0.6);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -154,15 +163,22 @@ All colors MUST be HSL.
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   }
 
-  /* Hover effects */
+  /* Enhanced hover effects */
   .hover-scale {
     transition: var(--transition-smooth);
   }
 
   .hover-scale:hover {
     transform: scale(1.03);
+    box-shadow: 0 20px 60px -10px hsl(var(--converza-purple) / 0.4);
+  }
+
+  /* Enhanced glow effect */
+  .animate-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
   }
 
   /* Custom scrollbar */
@@ -181,5 +197,15 @@ All colors MUST be HSL.
 
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--converza-purple));
+  }
+
+  /* Enhanced card effects */
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 25px 70px -15px hsl(var(--converza-purple) / 0.4);
   }
 }

@@ -65,14 +65,14 @@ const CreateRobotModal = ({ open, onOpenChange }: CreateRobotModalProps) => {
               <SelectTrigger className="bg-card/50 border-border text-foreground">
                 <SelectValue placeholder="Selecione um canal" />
               </SelectTrigger>
-              <SelectContent className="bg-card border-border">
-                <SelectItem value="whatsapp">
+              <SelectContent className="bg-card border-border z-50">
+                <SelectItem value="whatsapp" className="text-foreground hover:bg-muted focus:bg-muted">
                   <div className="flex items-center gap-2">
                     <MessageSquare className="h-4 w-4 text-green-500" />
                     WhatsApp
                   </div>
                 </SelectItem>
-                <SelectItem value="telegram">
+                <SelectItem value="telegram" className="text-foreground hover:bg-muted focus:bg-muted">
                   <div className="flex items-center gap-2">
                     <Send className="h-4 w-4 text-blue-500" />
                     Telegram

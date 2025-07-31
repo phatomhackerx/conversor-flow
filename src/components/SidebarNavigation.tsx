@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
   BarChart3, 
@@ -14,21 +13,22 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const navItems = [
-  { icon: LayoutDashboard, label: "Dashboard", path: "/" },
-  { icon: BarChart3, label: "Métricas", path: "/metrics" },
-  { icon: Bot, label: "Robôs", path: "/robots" },
-  { icon: Puzzle, label: "Integrações", path: "/integrations" },
-  { icon: Settings, label: "Configurações", path: "/settings" },
-  { icon: HelpCircle, label: "Suporte", path: "/support" },
+  { icon: LayoutDashboard, label: "Dashboard", path: "dashboard" },
+  { icon: BarChart3, label: "Métricas", path: "metrics" },
+  { icon: Bot, label: "Robôs", path: "robots" },
+  { icon: Puzzle, label: "Integrações", path: "integrations" },
+  { icon: Settings, label: "Configurações", path: "settings" },
+  { icon: HelpCircle, label: "Suporte", path: "support" },
 ];
 
 interface SidebarNavigationProps {
   className?: string;
+  currentPage?: string;
+  onNavigate?: (page: string) => void;
 }
 
-const SidebarNavigation = ({ className }: SidebarNavigationProps) => {
+const SidebarNavigation = ({ className, currentPage = "dashboard", onNavigate }: SidebarNavigationProps) => {
   const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
 
   return (
     <div className={cn(
@@ -60,14 +60,14 @@ const SidebarNavigation = ({ className }: SidebarNavigationProps) => {
           <ul className="space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = location.pathname === item.path;
+              const isActive = currentPage === item.path;
               
               return (
                 <li key={item.path}>
-                  <a
-                    href={item.path}
+                  <button
+                    onClick={() => onNavigate?.(item.path)}
                     className={cn(
-                      "flex items-center p-3 rounded-lg transition-all duration-300 group hover:scale-105",
+                      "w-full flex items-center p-3 rounded-lg transition-all duration-300 group hover:scale-105",
                       isActive 
                         ? "bg-primary/20 text-primary border border-primary/30" 
                         : "hover:bg-muted text-muted-foreground hover:text-foreground",
@@ -86,7 +86,7 @@ const SidebarNavigation = ({ className }: SidebarNavigationProps) => {
                     {isActive && (
                       <div className="absolute left-0 w-1 h-8 bg-primary rounded-r-full" />
                     )}
-                  </a>
+                  </button>
                 </li>
               );
             })}
